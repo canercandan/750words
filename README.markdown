@@ -7,8 +7,8 @@ Therefore, I wrote this script. You get all the benefits of writing 750 words da
 Installation
 ------------
 Clone the repository, and execute:
-	
-	$ sudo python setup.py install
+
+        $ sudo python setup.py install
 
 Or whatever you do to install Python scripts on your machine.
 
@@ -28,24 +28,24 @@ To set the output directory:
 
 Usage
 -----
-Every day, type `750words` and type at least 750 words. You'll experience major improvements in creativity and a clear mind. 
+Every day, type `750words` and type at least 750 words. You'll experience major improvements in creativity and a clear mind.
 
 Here's the full output of `750words -h`:
 
-	usage: 750words [-h] {wc,log,edit,cat,path,analyze,config} ...
+        usage: 750words [-h] {wc,log,edit,cat,path,analyze,config} ...
 
-	positional arguments:
-	  {wc,log,edit,cat,path,analyze,config}
-	    analyze             view analysis
-	    cat                 cat the text
-	    config              modify or view configuration
-	    edit                edit the text
-	    log                 print the git log
-	    path                get the path to the text file
-	    wc                  view word count
+        positional arguments:
+          {wc,log,edit,cat,path,analyze,config}
+            analyze             view analysis
+            cat                 cat the text
+            config              modify or view configuration
+            edit                edit the text
+            log                 print the git log
+            path                get the path to the text file
+            wc                  view word count
 
-	optional arguments:
-	  -h, --help            show this help message and exit
+        optional arguments:
+          -h, --help            show this help message and exit
 
 Have fun!
 

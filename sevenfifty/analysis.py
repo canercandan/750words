@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # text analysis module
 from collections import defaultdict
 import random
@@ -66,7 +65,7 @@ def classify_sentiment(tokens):
                  for category in nltk.corpus.movie_reviews.categories()
                  for fileid in nltk.corpus.movie_reviews.fileids(category)]
         random.shuffle(documents)
-       
+
         featuresets = [(document_features(d), c) for (d,c) in documents]
         classifier = nltk.NaiveBayesClassifier.train(featuresets)
 

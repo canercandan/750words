@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # 750words on the command line.
 import os
 import sys
@@ -76,7 +75,7 @@ class SevenFiftyWords:
         self.configuration = ConfigParser.SafeConfigParser()
         try:
             # make sure the configuration file exists
-      	    open(self.configfile, 'r')
+            open(self.configfile, 'r')
             self.configuration.read(self.configfile)
         except:
             # set defaults
@@ -99,7 +98,7 @@ class SevenFiftyWords:
         for date in args.date:
             path = self.get_path(date)
             pprint(analysis.analyze(path))
-    
+
     def cat(self, args):
         results = ''
         for date in args.date:
@@ -111,7 +110,7 @@ class SevenFiftyWords:
             sys.stdout.write(output)
             results += output
         return results
-    
+
     def config(self, args):
         if args.editor:
             self.configuration.set('Editor', 'command', args.editor)
@@ -134,10 +133,10 @@ class SevenFiftyWords:
             print self.configuration.items(section)
 
         return [self.configuration.items(section) for section in self.configuration.sections()]
-    
+
     def edit(self, args):
-        """Opens up an editor so that you can write the day's words.""" 
-        
+        """Opens up an editor so that you can write the day's words."""
+
         for date in args.date:
             editor = self.configuration.get('Editor', 'command')
             path = self.get_path(date)
@@ -154,14 +153,14 @@ class SevenFiftyWords:
                 print 'You have written %i out of 750 words so far.' % wordcount
             else:
                 print 'You wrote %i words today. Great job!' % wordcount
-    
+
     def log(self, args):
         git_log(self.output_dir)
 
     def path(self, args):
         for date in args.date:
             print self.get_path(date)
-  
+
     def wc(self, args):
         if not args.paths:
             args.paths = [self.get_path()]
@@ -174,12 +173,12 @@ class SevenFiftyWords:
             for wordcount, filename in counts:
                 print str(wordcount).rjust(width), filename
             print total, 'total'
-    
+
     def get_path(self, date=None):
         if date is None:
             date = datetime.datetime.today()
         file_format = "txt"
-        path = os.path.join(self.output_dir, "%04i-%02i-%02i" % (date.year, date.month, date.day) + '.' + file_format) 
+        path = os.path.join(self.output_dir, "%04i-%02i-%02i" % (date.year, date.month, date.day) + '.' + file_format)
         return path
 
     def update_path(self, path):
@@ -195,33 +194,33 @@ class SevenFiftyWords:
         if GIT_INSTALLED:
             git_init(self.output_dir)
         return path
-    
+
     def main(self):
         # set up argparsers
         parser = argparse.ArgumentParser()
         subparsers = parser.add_subparsers()
-    
+
         # analyze parser
         analyze_parser = subparsers.add_parser('analyze', help='view analysis')
         analyze_parser.add_argument('date', help="the date of the text", default=[parse_date("today")], type=parse_date, nargs='*')
         analyze_parser.set_defaults(func=self.analyze)
-    
+
         # cat parser
         cat_parser = subparsers.add_parser('cat', help='cat the text')
         cat_parser.add_argument('date', help="the date of the text", default=[parse_date("today")], type=parse_date, nargs='*')
         cat_parser.set_defaults(func=self.cat)
-    
+
         # config parser
         config_parser = subparsers.add_parser('config', help='modify or view configuration')
         config_parser.add_argument('-e', '--editor', help="the text editor you wish to use")
         config_parser.add_argument('-o', '--output', help="the directory in which to store your texts")
         config_parser.set_defaults(func=self.config)
-    
+
         # edit parser
         edit_parser = subparsers.add_parser('edit', help='edit the text')
         edit_parser.add_argument('date', help="the date of the text", default=[parse_date("today")], type=parse_date, nargs='*')
         edit_parser.set_defaults(func=self.edit)
-    
+
         # log parser
         if GIT_INSTALLED:
             log_parser = subparsers.add_parser('log', help='print the git log')
@@ -231,12 +230,12 @@ class SevenFiftyWords:
         path_parser = subparsers.add_parser('path', help='get the path to the text file')
         path_parser.add_argument('date', help="the date of the text", default=[parse_date("today")], type=parse_date, nargs='*')
         path_parser.set_defaults(func=self.path)
-    
+
         # wc parser
         wc_parser = subparsers.add_parser('wc', help='view word count')
         wc_parser.add_argument('paths', help="the file(s) that you wanted counted", nargs='*')
         wc_parser.set_defaults(func=self.wc)
-    
+
         if len(sys.argv) == 1:
             # default when no command is specified
             args = parser.parse_args(['edit'])
@@ -244,7 +243,7 @@ class SevenFiftyWords:
             # call the specified function
             args = parser.parse_args()
         args.func(args)
-    
+
 if __name__ == "__main__":
     sevenfiftywords = SevenFiftyWords()
     sevenfiftywords.main()
